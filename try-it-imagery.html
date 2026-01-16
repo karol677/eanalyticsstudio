@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Try It — Imagery Exercise</title>
+  <meta name="description" content="A short guided imagery exercise for athletes: one line at a time, multi-sensory, focused on a crucial performance moment." />
+
+  <style>
+    :root{
+      --bg:#070A0F;
+      --bg2:#0B1020;
+      --panel:rgba(255,255,255,0.06);
+      --panel2:rgba(255,255,255,0.08);
+      --line:rgba(255,255,255,0.10);
+      --text:rgba(255,255,255,0.92);
+      --muted:rgba(255,255,255,0.70);
+      --muted2:rgba(255,255,255,0.55);
+      --accent:#A7B6FF;
+      --accent2:#7FE1C7;
+      --radius:22px;
+      --radius2:30px;
+      --max:980px;
+      --shadow:0 18px 60px rgba(0,0,0,0.55);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 18% 10%, rgba(167,182,255,0.12), transparent 55%),
+                  radial-gradient(900px 600px at 82% 18%, rgba(127,225,199,0.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{color:var(--accent)}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px;}
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(14px);
+      background: rgba(7,10,15,0.70);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:14px 0;
+    }
+    .brand{display:flex; gap:10px; align-items:baseline; font-weight:650; letter-spacing:0.2px;}
+    .brand small{color:var(--muted2); font-weight:520; letter-spacing:0.10em; text-transform:uppercase; font-size:0.72rem;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:10px 14px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color:var(--text);
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(167,182,255,0.35);
+    }
+    .btn.primary{
+      border-color: rgba(167,182,255,0.45);
+      background: rgba(167,182,255,0.10);
+    }
+
+    main{padding:34px 0 76px;}
+    .kicker{
+      color:var(--muted2);
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      font-size:0.78rem;
+      margin-bottom:12px;
+    }
+    h1{margin:0 0 10px; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing:-0.4px; line-height:1.15;}
+    h2{margin:0 0 10px; font-size:1.2rem; letter-spacing:-0.2px;}
+    p{margin:0 0 12px; color:var(--muted); max-width:78ch;}
+    .card{
+      background: var(--panel);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 14px;
+      align-items:start;
+      margin-top: 14px;
+    }
+    .panel{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.04);
+      padding: 16px;
+    }
+    label{color:var(--muted2); font-size:0.92rem;}
+    input, textarea, select{
+      width:100%;
+      padding: 12px 12px;
+      margin-top: 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(167,182,255,0.45);
+      box-shadow: 0 0 0 5px rgba(167,182,255,0.10);
+    }
+
+    .exercise{
+      margin-top: 14px;
+      display:none;
+    }
+    .linebox{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(167,182,255,0.10), transparent 55%),
+        radial-gradient(700px 420px at 80% 20%, rgba(127,225,199,0.07), transparent 60%),
+        rgba(255,255,255,0.03);
+      padding: 18px;
+      min-height: 220px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .line{
+      font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      color: var(--text);
+      margin:0;
+    }
+    .sub{
+      color: var(--muted2);
+      font-size: 0.95rem;
+      margin:0;
+    }
+    .controls{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top: 12px;
+    }
+    .progress{
+      color: var(--muted2);
+      font-size: 0.92rem;
+    }
+    .error{
+      display:none;
+      margin-top: 12px;
+      color:#ffb4b4;
+      background: rgba(255,180,180,0.06);
+      border: 1px solid rgba(255,180,180,0.18);
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+
+    .cta{
+      display:none;
+      margin-top: 14px;
+    }
+    .cta h2{margin-top:0}
+    .cta .btn{margin-top:6px}
+
+    footer{
+      border-top:1px solid var(--line);
+      padding: 18px 0 40px;
+      color: var(--muted2);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+      .controls{justify-content:flex-start}
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .btn{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="index.html" aria-label="Back to homepage">
+          <span>Performance Measure</span>
+          <small>Try it</small>
+        </a>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn" href="index.html#about">About</a>
+          <a class="btn" href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="card">
+        <div class="kicker">A short imagery exercise (2–3 minutes)</div>
+        <h1>One moment. All senses. One clear intention.</h1>
+        <p>
+          Choose a <strong>crucial point</strong> in your performance — the moment where execution matters most.
+          You’ll be guided one line at a time to build a vivid, multi-sensory image.
+        </p>
+        <p style="color: var(--muted2);">
+          This is a demo exercise. It’s not a diagnostic and doesn’t store your data.
+        </p>
+
+        <div class="grid" aria-label="Setup">
+          <div class="panel">
+            <h2>Set your scene</h2>
+
+            <div class="error" id="err" role="alert"></div>
+
+            <label>
+              Sport / context (optional)
+              <input type="text" id="sport" placeholder="e.g., rowing, fencing, wrestling…" />
+            </label>
+
+            <div style="height:12px;"></div>
+
+            <label>
+              Your crucial point (required)
+              <input type="text" id="moment" required
+                     placeholder="e.g., last 30 seconds, first exchange, final lift, penalty shot…" />
+            </label>
+
+            <div style="height:12px;"></div>
+
+            <label>
+              Intention for this moment (required)
+              <input type="text" id="intention" required
+                     placeholder="e.g., calm aggression, smooth rhythm, fast hands, committed entry…" />
+            </label>
+
+            <div style="height:12px;"></div>
+
+            <label>
+              Pace
+              <select id="pace">
+                <option value="manual">Manual (you click next)</option>
+                <option value="auto7">Auto (every 7 seconds)</option>
+                <option value="auto10">Auto (every 10 seconds)</option>
+              </select>
+            </label>
+
+            <div style="height:14px;"></div>
+
+            <button class="btn primary" id="startBtn" type="button">Start exercise</button>
+            <button class="btn" id="resetBtn" type="button">Reset</button>
+
+            <p class="sub" style="margin-top:12px;">
+              Tip: keep your eyes open softly, or closed if safe. Breathe naturally.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h2>How it works</h2>
+            <p class="sub" style="margin-top:0;">
+              You’ll be prompted to build your image using:
+            </p>
+            <ul style="margin:10px 0 0; padding-left:18px; color: var(--muted);">
+              <li>visual detail (what you see)</li>
+              <li>sound (what you hear)</li>
+              <li>touch and body feel (contact, tension, movement)</li>
+              <li>timing and rhythm</li>
+              <li>emotion (the useful kind)</li>
+              <li>a single cue and commitment</li>
+            </ul>
+            <p class="sub" style="margin-top:12px;">
+              At the end you’ll get a clear next step: repeat, refine, then take the full measure.
+            </p>
+          </div>
+        </div>
+
+        <!-- EXERCISE UI -->
+        <div class="exercise" id="exercise">
+          <div class="linebox" role="region" aria-live="polite" aria-label="Guided line">
+            <div>
+              <p class="sub" id="subtitle"></p>
+              <p class="line" id="line"></p>
+            </div>
+
+            <div class="controls">
+              <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <button class="btn" id="prevBtn" type="button">Back</button>
+                <button class="btn primary" id="nextBtn" type="button">Next</button>
+                <button class="btn" id="pauseBtn" type="button" style="display:none;">Pause</button>
+              </div>
+              <div class="progress" id="progress"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta" id="cta">
+          <div class="panel">
+            <h2>Next step</h2>
+            <p>
+              Repeat the exercise once more, then take the baseline measure to track patterns over time.
+              The goal is not “perfect imagery” — it’s usable imagery that supports consistent execution.
+            </p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+              <a class="btn primary" href="measure.html">Take the full measure</a>
+              <button class="btn" id="repeatBtn" type="button">Repeat exercise</button>
+              <a class="btn" href="contact.html">Discuss suitability</a>
+            </div>
+            <p class="sub" style="margin-top:12px;">
+              This is a short demo. A full workflow can personalise cues, timing, and intervention tracking.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <small>© <span id="year"></span> Performance Measurement Platform. This exercise stores no personal data.</small>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const els = {
+      sport: document.getElementById("sport"),
+      moment: document.getElementById("moment"),
+      intention: document.getElementById("intention"),
+      pace: document.getElementById("pace"),
+      startBtn: document.getElementById("startBtn"),
+      resetBtn: document.getElementById("resetBtn"),
+      err: document.getElementById("err"),
+      exercise: document.getElementById("exercise"),
+      subtitle: document.getElementById("subtitle"),
+      line: document.getElementById("line"),
+      progress: document.getElementById("progress"),
+      prevBtn: document.getElementById("prevBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      pauseBtn: document.getElementById("pauseBtn"),
+      cta: document.getElementById("cta"),
+      repeatBtn: document.getElementById("repeatBtn"),
+    };
+
+    let scriptLines = [];
+    let idx = 0;
+    let timer = null;
+    let autoMode = false;
+
+    function showError(msg){
+      els.err.style.display = "block";
+      els.err.textContent = msg;
+    }
+    function clearError(){
+      els.err.style.display = "none";
+      els.err.textContent = "";
+    }
+
+    function buildScript(){
+      const sport = (els.sport.value || "").trim();
+      const moment = (els.moment.value || "").trim();
+      const intention = (els.intention.value || "").trim();
+
+      // One line at a time, multi-sensory, crucial point focus
+      const header = sport ? `In ${sport}, bring yourself to: ${moment}.` : `Bring yourself to: ${moment}.`;
+
+      return [
+        { sub: "Settle", text: "Take one slow breath. Let your shoulders drop by one degree." },
+        { sub: "Choose the moment", text: header },
+        { sub: "See", text: "See the environment clearly—light, distance, lines, and where your attention needs to land." },
+        { sub: "Hear", text: "Hear the soundscape—breath, contact, crowd, water, blades, mat—whatever is real for you." },
+        { sub: "Feel", text: "Feel your body: feet or contact points, hands, grip, posture, and the exact amount of tension you need." },
+        { sub: "Timing", text: "Sense the rhythm and timing—when you initiate, when you commit, when you release." },
+        { sub: "The crucial point", text: `Now zoom in on the crucial point: ${moment}.` },
+        { sub: "The cue", text: `Choose one cue that locks you into execution: “${intention}.”` },
+        { sub: "Run it", text: "Run the next 5–10 seconds in real time. Stay inside the image—don’t narrate it." },
+        { sub: "Commit", text: "If doubt appears, let it pass like background noise. Return to the cue." },
+        { sub: "Finish", text: "Finish the moment cleanly. Notice what you did well." },
+        { sub: "Anchor", text: "One breath. Save the cue. You can return to it in seconds." }
+      ];
+    }
+
+    function updateLine(){
+      const total = scriptLines.length;
+      const current = scriptLines[idx];
+
+      els.subtitle.textContent = current.sub;
+      els.line.textContent = current.text;
+      els.progress.textContent = `Line ${idx + 1} of ${total}`;
+
+      els.prevBtn.disabled = idx === 0;
+      els.nextBtn.textContent = (idx === total - 1) ? "Finish" : "Next";
+    }
+
+    function stopAuto(){
+      if (timer) clearInterval(timer);
+      timer = null;
+      autoMode = false;
+      els.pauseBtn.style.display = "none";
+    }
+
+    function startAuto(seconds){
+      stopAuto();
+      autoMode = true;
+      els.pauseBtn.style.display = "inline-flex";
+      els.pauseBtn.textContent = "Pause";
+      timer = setInterval(() => {
+        if (idx < scriptLines.length - 1){
+          idx++;
+          updateLine();
+        } else {
+          // finish
+          stopAuto();
+          finish();
+        }
+      }, seconds * 1000);
+    }
+
+    function finish(){
+      stopAuto();
+      els.exercise.style.display = "none";
+      els.cta.style.display = "block";
+      els.cta.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function start(){
+      clearError();
+
+      const moment = (els.moment.value || "").trim();
+      const intention = (els.intention.value || "").trim();
+
+      if (!moment || !intention){
+        showError("Please enter your crucial point and intention to begin.");
+        return;
+      }
+
+      scriptLines = buildScript();
+      idx = 0;
+
+      els.cta.style.display = "none";
+      els.exercise.style.display = "block";
+      els.exercise.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      updateLine();
+
+      const pace = els.pace.value;
+      if (pace === "auto7") startAuto(7);
+      if (pace === "auto10") startAuto(10);
+      if (pace === "manual") stopAuto();
+    }
+
+    function resetAll(){
+      stopAuto();
+      clearError();
+      els.sport.value = "";
+      els.moment.value = "";
+      els.intention.value = "";
+      els.pace.value = "manual";
+      els.exercise.style.display = "none";
+      els.cta.style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Events
+    els.startBtn.addEventListener("click", start);
+    els.resetBtn.addEventListener("click", resetAll);
+
+    els.nextBtn.addEventListener("click", () => {
+      if (!scriptLines.length) return;
+      if (idx < scriptLines.length - 1){
+        idx++;
+        updateLine();
+      } else {
+        finish();
+      }
+    });
+
+    els.prevBtn.addEventListener("click", () => {
+      if (!scriptLines.length) return;
+      if (idx > 0){
+        idx--;
+        updateLine();
+      }
+    });
+
+    els.pauseBtn.addEventListener("click", () => {
+      if (!autoMode){
+        // not in auto mode, nothing to do
+        return;
+      }
+      if (timer){
+        clearInterval(timer);
+        timer = null;
+        els.pauseBtn.textContent = "Resume";
+      } else {
+        const pace = els.pace.value === "auto7" ? 7 : 10;
+        els.pauseBtn.textContent = "Pause";
+        timer = setInterval(() => {
+          if (idx < scriptLines.length - 1){
+            idx++;
+            updateLine();
+          } else {
+            stopAuto();
+            finish();
+          }
+        }, pace * 1000);
+      }
+    });
+
+    els.repeatBtn.addEventListener("click", () => {
+      // Keep inputs, just restart
+      els.cta.style.display = "none";
+      start();
+    });
+
+    // Safety: stop timers if user leaves
+    window.addEventListener("beforeunload", () => stopAuto());
+  </script>
+
+  <!--
+    Hook up from homepage:
+      <a class="btn primary" href="try-it-imagery.html">Try it</a>
+
+    Notes:
+    - No personal data stored.
+    - You can customise the lines to match your exact imagery method (7 senses, cue words, etc.).
+  -->
+</body>
+</html>

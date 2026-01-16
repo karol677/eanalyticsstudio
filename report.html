@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Report — Performance Measure</title>
+  <meta name="description" content="Your performance measure report." />
+
+  <style>
+    :root{
+      --bg: #070A0F;
+      --bg2:#0B1020;
+      --panel: rgba(255,255,255,0.06);
+      --line: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --muted2: rgba(255,255,255,0.55);
+      --accent: #A7B6FF;
+      --accent2:#7FE1C7;
+      --radius: 22px;
+      --max: 1100px;
+      --shadow: 0 18px 60px rgba(0,0,0,0.55);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 18% 10%, rgba(167,182,255,0.12), transparent 55%),
+                  radial-gradient(900px 600px at 82% 18%, rgba(127,225,199,0.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{color:var(--accent)}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px;}
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(14px);
+      background: rgba(7,10,15,0.70);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:14px 0;
+    }
+    .brand{display:flex; gap:10px; align-items:baseline; font-weight:650; letter-spacing:0.2px;}
+    .brand small{color:var(--muted2); font-weight:520; letter-spacing:0.10em; text-transform:uppercase; font-size:0.72rem;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:10px 14px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(167,182,255,0.35);
+    }
+    .btn.primary{
+      border-color: rgba(167,182,255,0.45);
+      background: rgba(167,182,255,0.10);
+    }
+    main{padding:34px 0 70px;}
+    .kicker{
+      color: var(--muted2);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+    h1{margin:0 0 10px; font-size: clamp(1.8rem, 3.2vw, 2.5rem); letter-spacing:-0.4px; line-height:1.15;}
+    h2{margin:0 0 10px; font-size:1.2rem; letter-spacing:-0.2px;}
+    p{margin:0 0 12px; color:var(--muted); max-width:80ch;}
+    .card{
+      background: var(--panel);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .topbar{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      margin-top: 12px;
+    }
+    .meta{color: var(--muted2); font-size:0.95rem;}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .gauges{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .gcard{
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.04);
+      padding: 16px;
+    }
+    .gtitle{
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+      margin-bottom: 8px;
+    }
+    .gtitle strong{letter-spacing:-0.1px;}
+    .gtitle span{color: var(--muted2); font-size:0.92rem;}
+    .gauge-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 0 2px;
+    }
+    .scoreline{
+      display:flex;
+      justify-content:space-between;
+      color: var(--muted2);
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+
+    /* Print styling (for Save as PDF) */
+    @media print{
+      header, .topbar .btn { display:none !important; }
+      body{ background:#0b0f14 !important; }
+      .card, .gcard{ box-shadow:none !important; }
+      a{ text-decoration:none !important; color:inherit !important; }
+    }
+
+    @media (max-width: 980px){
+      .gauges{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px){
+      .gauges{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="index.html" aria-label="Back to homepage">
+          <span>Performance Measure</span>
+          <small>Report</small>
+        </a>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn" href="measure.html">Retake</a>
+          <a class="btn" href="index.html#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="card" id="reportCard">
+        <div class="kicker">Exploratory report</div>
+        <h1>Your results</h1>
+        <p>
+          These scores summarise your responses on a 1–5 scale. They are most useful when repeated over time to observe change
+          alongside training, recovery, and psychological skill work.
+        </p>
+
+        <div class="topbar">
+          <div class="meta" id="metaLine"></div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn primary" id="printBtn" type="button">Download PDF</button>
+            <button class="btn" id="downloadHtmlBtn" type="button">Download HTML</button>
+          </div>
+        </div>
+
+        <div class="grid">
+          <section aria-labelledby="overall-title" class="gcard">
+            <div class="gtitle">
+              <strong id="overall-title">Overall score</strong>
+              <span id="overallNum">—</span>
+            </div>
+            <div class="gauge-wrap" id="overallGauge"></div>
+            <div class="scoreline">
+              <span>Lower</span><span>Higher</span>
+            </div>
+          </section>
+
+          <section aria-labelledby="domains-title" class="gcard">
+            <h2 id="domains-title">Domain scores</h2>
+            <div class="gauges" id="domainGauges"></div>
+          </section>
+
+          <section aria-labelledby="notes-title" class="gcard">
+            <h2 id="notes-title">Notes</h2>
+            <p style="margin-bottom:10px;">
+              If you intend to use this measure for monitoring, keep the same conditions as much as possible (timing, context, recent training load).
+              The value is in the trend.
+            </p>
+            <p style="color: var(--muted2); margin:0;">
+              This report is exploratory and is not a diagnosis or clinical assessment.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // --- Utility: clamp ---
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+    // --- SVG Semi-dial gauge (0..1) ---
+    function gaugeSVG({ value01, label, size=220 }){
+      const v = clamp(value01, 0, 1);
+      const w = size;
+      const h = Math.round(size * 0.62);
+
+      const cx = w/2;
+      const cy = h;
+      const r  = Math.round(size * 0.42);
+
+      // angles: 180deg (left) to 0deg (right)
+      const a0 = Math.PI;      // 180
+      const a1 = 0;            // 0
+      const av = a0 + (a1 - a0) * v;
+
+      const p = (ang) => ({
+        x: cx + r * Math.cos(ang),
+        y: cy + r * Math.sin(ang)
+      });
+
+      const start = p(a0);
+      const end = p(a1);
+      const val = p(av);
+
+      const arcPath = `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} A ${r} ${r} 0 0 1 ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
+      const valPath = `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} A ${r} ${r} 0 0 1 ${val.x.toFixed(2)} ${val.y.toFixed(2)}`;
+
+      const needleLen = Math.round(r * 0.92);
+      const nx = cx + needleLen * Math.cos(av);
+      const ny = cy + needleLen * Math.sin(av);
+
+      // Use gradients for a “high-end” feel without neon
+      return `
+        <svg width="${w}" height="${h+12}" viewBox="0 0 ${w} ${h+12}" role="img" aria-label="${label}">
+          <defs>
+            <linearGradient id="bgArc" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.10)"></stop>
+              <stop offset="100%" stop-color="rgba(255,255,255,0.14)"></stop>
+            </linearGradient>
+            <linearGradient id="valArc" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgba(167,182,255,0.65)"></stop>
+              <stop offset="100%" stop-color="rgba(127,225,199,0.55)"></stop>
+            </linearGradient>
+          </defs>
+
+          <!-- Background arc -->
+          <path d="${arcPath}" fill="none" stroke="url(#bgArc)" stroke-width="16" stroke-linecap="round"></path>
+
+          <!-- Value arc -->
+          <path d="${valPath}" fill="none" stroke="url(#valArc)" stroke-width="16" stroke-linecap="round"></path>
+
+          <!-- Needle -->
+          <line x1="${cx}" y1="${cy}" x2="${nx.toFixed(2)}" y2="${ny.toFixed(2)}"
+                stroke="rgba(255,255,255,0.78)" stroke-width="2.2" stroke-linecap="round"></line>
+          <circle cx="${cx}" cy="${cy}" r="5.2" fill="rgba(255,255,255,0.82)"></circle>
+
+          <!-- Value text -->
+          <text x="${cx}" y="${h-18}" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+                font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+                font-size="16" font-weight="650">
+            ${Math.round(v*100)}%
+          </text>
+        </svg>
+      `;
+    }
+
+    function toPercent01FromScale(score, min=1, max=5){
+      // score in [min..max] -> [0..1]
+      const v = (score - min) / (max - min);
+      return clamp(v, 0, 1);
+    }
+
+    function fmt1(n){ return (Math.round(n*10)/10).toFixed(1); }
+
+    function loadReport(){
+      const raw = sessionStorage.getItem("pm_report_v1");
+      if(!raw) return null;
+      try { return JSON.parse(raw); } catch { return null; }
+    }
+
+    const report = loadReport();
+    const metaLine = document.getElementById("metaLine");
+    const overallGauge = document.getElementById("overallGauge");
+    const overallNum = document.getElementById("overallNum");
+    const domainGauges = document.getElementById("domainGauges");
+
+    if(!report){
+      metaLine.textContent = "No report data found. Please complete the measure first.";
+      overallNum.textContent = "—";
+      overallGauge.innerHTML = gaugeSVG({ value01: 0, label:"Overall score", size: 240 });
+    } else {
+      metaLine.textContent = `Created: ${report.createdAtDisplay} • Scale: ${report.scale.min}–${report.scale.max}`;
+      overallNum.textContent = `${fmt1(report.overall)} / 5`;
+
+      const ov01 = toPercent01FromScale(report.overall, report.scale.min, report.scale.max);
+      overallGauge.innerHTML = gaugeSVG({ value01: ov01, label:"Overall score", size: 260 });
+
+      domainGauges.innerHTML = "";
+      report.domains.forEach(d => {
+        const score = report.domainScores[d.key];
+        const v01 = toPercent01FromScale(score, report.scale.min, report.scale.max);
+
+        const card = document.createElement("div");
+        card.className = "gcard";
+        card.style.padding = "14px";
+        card.innerHTML = `
+          <div class="gtitle">
+            <strong>${d.title}</strong>
+            <span>${fmt1(score)} / 5</span>
+          </div>
+          <div class="gauge-wrap">${gaugeSVG({ value01: v01, label: d.title, size: 210 })}</div>
+          <div class="meta">${d.note}</div>
+        `;
+        domainGauges.appendChild(card);
+      });
+    }
+
+    // Download PDF: browser print -> Save as PDF
+    document.getElementById("printBtn").addEventListener("click", () => {
+      window.print();
+    });
+
+    // Download HTML report (self-contained snapshot)
+    document.getElementById("downloadHtmlBtn").addEventListener("click", () => {
+      const html = "<!doctype html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `performance-measure-report-${new Date().toISOString().slice(0,10)}.html`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

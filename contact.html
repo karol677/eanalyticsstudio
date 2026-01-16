@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us — Performance Measure</title>
+  <meta name="description" content="Get in touch for performance measurement consultations." />
+
+  <style>
+    :root{
+      --bg: #070A0F;
+      --bg-2:#0B1020;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.08);
+      --line: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --muted2: rgba(255,255,255,0.55);
+      --accent: #A7B6FF;          /* restrained, not neon */
+      --accent-2:#7FE1C7;         /* optional secondary */
+      --shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --radius: 22px;
+      --radius-2: 30px;
+      --max: 1180px;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 18% 10%, rgba(167,182,255,0.12), transparent 55%),
+                  radial-gradient(900px 600px at 82% 18%, rgba(127,225,199,0.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg), var(--bg-2));
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ color: var(--accent); }
+    img{ max-width: 100%; display: block; }
+
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+
+    /* Subtle grid (avoid "crypto glow") */
+    .grid-overlay{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      opacity: 0.25;
+      mask-image: radial-gradient(circle at 25% 10%, rgba(0,0,0,1), rgba(0,0,0,0.25) 55%, rgba(0,0,0,0));
+    }
+
+    /* Header / Nav */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,10,15,0.70);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+    .brand{
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      letter-spacing: 0.2px;
+      font-weight: 650;
+    }
+    .brand small{
+      color: var(--muted2);
+      font-weight: 520;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    nav ul{
+      list-style: none;
+      display: flex;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    nav a{
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav a:hover{ color: var(--text); }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      white-space: nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(167,182,255,0.35);
+      color: var(--text);
+    }
+    .btn.primary{
+      border-color: rgba(167,182,255,0.45);
+      background: rgba(167,182,255,0.10);
+    }
+
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Section spacing */
+    section{
+      padding: 46px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .contact-grid .card{ padding: 18px; }
+
+    input, textarea{
+      width: 100%;
+      padding: 12px 12px;
+      margin-top: 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      outline: none;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(167,182,255,0.45);
+      box-shadow: 0 0 0 5px rgba(167,182,255,0.10);
+    }
+    label{ color: var(--muted2); font-size: 0.92rem; }
+
+    .panel{
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .list{
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .list li{ margin: 6px 0; }
+
+    footer{
+      padding: 26px 0 44px;
+      border-top: 1px solid var(--line);
+      color: var(--muted2);
+      font-size: 0.92rem;
+    }
+
+    /* Accessibility helpers */
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .contact-grid{ grid-template-columns: 1fr; }
+      nav ul{ gap: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior: auto; }
+      .btn{ transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- HEADER / NAV -->
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="index.html" aria-label="Go to homepage">
+          <span>Performance Measure</span>
+          <small>Data × Psychology</small>
+        </a>
+
+        <nav aria-label="Primary navigation">
+          <ul>
+            <li><a href="index.html#about">About us</a></li>
+            <li><a href="measure.html">Take our measure</a></li>
+            <li><a href="index.html">Back to home</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <h2 id="contact-title">Contact us</h2>
+        <p>
+          We prefer thoughtful conversations over rushed sales calls. If you’re exploring measurement, intervention tracking,
+          or a performance/clinical monitoring workflow, reach out and we’ll check suitability.
+        </p>
+
+        <div class="contact-grid">
+          <!-- LEFT: FORM -->
+          <div class="card">
+            <img src="assets/img/break1.webp" alt="" style="width:100%; height:200px; object-fit:cover; border-radius: var(--radius); margin-bottom:12px;">
+            <h3>Start a conversation</h3>
+            <p style="color: var(--muted2); margin-bottom: 12px;">
+              Share a short summary of your setting (sport/clinic), audience (athletes/medics), and what you want the measure to support.
+            </p>
+
+            <!-- WORKING (no backend) using mailto -->
+            <form id="contactForm" novalidate>
+              <label>
+                Name
+                <input type="text" name="name" autocomplete="name" required />
+              </label>
+
+              <div style="height:12px;"></div>
+
+              <label>
+                Email
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+
+              <div style="height:12px;"></div>
+
+              <label>
+                Organisation / Team (optional)
+                <input type="text" name="org" autocomplete="organization" />
+              </label>
+
+              <div style="height:12px;"></div>
+
+              <label>
+                Message
+                <textarea
+                  name="message"
+                  rows="6"
+                  required
+                  placeholder="Context, what you want to measure, frequency, and how you plan to use the results…"
+                ></textarea>
+              </label>
+
+              <div style="height:12px;"></div>
+
+              <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                <button class="btn primary" type="submit">Send</button>
+                <span class="meta" style="color: var(--muted2); font-size:0.92rem;">
+                  Your email client will open (no data is stored on this site).
+                </span>
+              </div>
+
+              <div class="error" id="contactError" role="alert"
+                   style="display:none; margin-top:12px; color:#ffb4b4; background:rgba(255,180,180,0.06); border:1px solid rgba(255,180,180,0.18); padding:10px 12px; border-radius:14px;">
+              </div>
+            </form>
+          </div>
+
+          <!-- RIGHT: DETAILS / SUITABILITY -->
+          <div class="card">
+            <img src="assets/img/break2.jpg" alt="" style="width:100%; height:200px; object-fit:cover; border-radius: var(--radius); margin-bottom:12px;">
+            <h3>Direct</h3>
+            <p style="color: var(--muted2); margin-bottom: 12px;">
+              If you prefer direct contact:
+            </p>
+
+            <p style="margin:0 0 10px;">
+              <strong>Email:</strong>
+              <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a><br />
+              <strong>Response time:</strong> 1–2 working days
+            </p>
+
+            <div class="panel" style="margin-top:14px;">
+              <h3 style="margin-top:0;">What helps us assess fit</h3>
+              <ul class="list">
+                <li>Audience (athletes, medical staff, mixed teams)</li>
+                <li>Decision context (what the measure will inform)</li>
+                <li>Frequency (baseline only vs. repeated monitoring)</li>
+                <li>Interventions you want to evaluate over time</li>
+                <li>Data handling requirements (privacy, governance, reporting)</li>
+              </ul>
+            </div>
+
+            <div class="panel" style="margin-top:14px;">
+              <h3 style="margin-top:0;">Suitability note</h3>
+              <p style="margin:0; color: var(--muted);">
+                Not every project should proceed. If the scope or constraints don’t support high-trust measurement,
+                we’ll say so early.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <small>© <span id="year">2026</span> Performance Measurement Platform. High-trust measurement for applied performance.</small>
+        <small style="color: var(--muted2);">Data × Psychology × Longitudinal insight</small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // CONTACT FORM: mailto submit (no backend required)
+    (function () {
+      const form = document.getElementById("contactForm");
+      const err = document.getElementById("contactError");
+
+      if (!form) return;
+
+      function showError(msg) {
+        err.textContent = msg;
+        err.style.display = "block";
+      }
+      function clearError() {
+        err.style.display = "none";
+        err.textContent = "";
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        clearError();
+
+        const fd = new FormData(form);
+        const name = (fd.get("name") || "").toString().trim();
+        const email = (fd.get("email") || "").toString().trim();
+        const org = (fd.get("org") || "").toString().trim();
+        const message = (fd.get("message") || "").toString().trim();
+
+        if (!name || !email || !message) {
+          showError("Please complete Name, Email, and Message.");
+          return;
+        }
+
+        // Simple email format check
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showError("Please enter a valid email address.");
+          return;
+        }
+
+        const subject = encodeURIComponent("Performance Measurement — Enquiry");
+        const bodyLines = [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          org ? `Organisation/Team: ${org}` : null,
+          "",
+          "Message:",
+          message,
+          "",
+          "---",
+          "Sent from the website contact form (mailto)."
+        ].filter(Boolean);
+
+        const body = encodeURIComponent(bodyLines.join("\n"));
+
+        // TODO: replace with your real inbox
+        const to = "hello@yourdomain.com";
+
+        // Opens the visitor's email client
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+        form.reset();
+      });
+    })();
+  </script>
+
+  <!--
+  OPTIONAL (later): replace mailto with a real form endpoint
+
+  1) Formspree:
+     - Create form -> get endpoint
+     - Set: <form action="https://formspree.io/f/XXXX" method="POST">
+     - Remove the JS mailto script
+     - Add hidden field for subject if needed
+
+  2) Web3Forms:
+     - Get access key
+     - <form action="https://api.web3forms.com/submit" method="POST">
+     - <input type="hidden" name="access_key" value="YOUR_KEY" />
+  -->
+</body>
+</html>
